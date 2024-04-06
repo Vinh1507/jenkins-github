@@ -4,7 +4,7 @@ pipeline {
         stage('build') {
             steps {
                 // Execute build steps here
-                echo 'Building the application (updated)...'
+                echo 'Building the application (updated 234)...'
             }
         }
         stage('test') {
