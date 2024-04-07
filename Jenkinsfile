@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    environment {
+        DOCKER_HUB_CREDENTIALS = 'docker-hub-credentials'
+        DOCKER_IMAGE_NAME = 'vinhbh/simple_image_jenkins'
+    }
     stages {
         stage('Clone') {
             steps {
@@ -12,7 +16,15 @@ pipeline {
         }
         stage('Build Image') {
             steps {
-                sh 'docker build -t vinhbh/simple_image_jenkins .'
+                script {
+                    // Xây dựng Docker image từ Dockerfile
+                    def dockerImage = docker.build(env.DOCKER_IMAGE_NAME, '-f .')
+                    if (dockerImage != null) {
+                        echo 'Docker image đã được xây dựng thành công.'
+                    } else {
+                        error 'Không thể xây dựng Docker image.'
+                    }
+                }
             }
         }
         stage('Push to Docker Hub') {
