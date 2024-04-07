@@ -3,6 +3,7 @@ pipeline {
     stages {
         stage('Clone') {
             steps {
+                echo 'vinhbh start...'
                 git 'https://github.com/Vinh1507/jenkins-github'
             }
         }
