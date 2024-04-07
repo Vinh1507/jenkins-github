@@ -1,22 +1,24 @@
 pipeline {
     agent any
     stages {
-        stage('build') {
+        stage('Clone') {
             steps {
-                // Execute build steps here
-                echo 'Building the application (updated)...'
+                git 'https://github.com/Vinh1507/jenkins-github'
             }
         }
-        stage('test') {
+        stage('Build Image') {
             steps {
-                // Execute test steps here
-                echo 'Testing the application...'
+                sh 'docker build -t vinhbh/simple_image_jenkins .'
             }
         }
-        stage('deploy') {
+        stage('Push to Docker Hub') {
             steps {
-                // Execute deployment steps here
-                echo 'Deploying the application...'
+                // Login to Docker Hub
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                    sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
+                }
+                // Push Docker image to Docker Hub
+                sh 'docker push vinhbh/simple_image_jenkins'
             }
         }
     }
