@@ -3,8 +3,11 @@ pipeline {
     stages {
         stage('Clone') {
             steps {
-                echo 'vinhbh start...'
-                git 'https://github.com/Vinh1507/jenkins-github'
+                script {
+                    echo 'vinhbh start...'
+                    // Clone code from a specific branch
+                    git branch: 'main', url: 'https://github.com/Vinh1507/jenkins-github'
+                }
             }
         }
         stage('Build Image') {
