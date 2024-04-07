@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKER_HUB_CREDENTIALS = 'docker-hub-credentials'
-        DOCKER_IMAGE_NAME = 'vinhbh/simple_image_jenkins'
+        registry = 'vinhbh/simple_image_jenkins'
     }
     stages {
         stage('Clone') {
@@ -17,13 +17,7 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
-                    // Xây dựng Docker image từ Dockerfile
-                    def dockerImage = docker.build(env.DOCKER_IMAGE_NAME, '-f .')
-                    if (dockerImage != null) {
-                        echo 'Docker image đã được xây dựng thành công.'
-                    } else {
-                        error 'Không thể xây dựng Docker image.'
-                    }
+                    dockerImage = docker.build registry + ":lastest"
                 }
             }
         }
