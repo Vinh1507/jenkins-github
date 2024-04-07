@@ -5,10 +5,6 @@ pipeline {
         DOCKER_IMAGE_NAME = 'vinhbh/simple_image_jenkins'
     }
     stages {
-        stage('Initialize'){
-            def dockerHome = tool 'myDocker'
-            env.PATH = "${dockerHome}/bin:${env.PATH}"
-        }
         stage('Clone') {
             steps {
                 script {
