@@ -17,7 +17,7 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
-                    dockerImage = docker.build registry + ":lastest"
+                    docker.build('vinhbh/simple_image_jenkins:1.0', '.')
                 }
             }
         }
