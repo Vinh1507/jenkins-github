@@ -28,7 +28,7 @@ pipeline {
                     sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
                 }
                 // Push Docker image to Docker Hub
-                sh 'docker push vinhbh/simple_image_jenkins'
+                sh 'docker push vinhbh/simple_image_jenkins:1.0'
             }
         }
     }
