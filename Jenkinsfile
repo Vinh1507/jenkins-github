@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKER_HUB_CREDENTIALS = 'dockerhub_vinhbh'
-        registry = 'vinhbh/simple_image_jenkins'
+        IMAGE_NAME = 'vinhbh/simple_image_jenkins'
     }
     stages {
         stage('Clone') {
@@ -17,6 +17,9 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
+                    def tagName = env.GIT_TAG_NAME
+                    def newImageName = "${env.IMAGE_NAME}:${tagName}"
+                    echo "Full image name: ${newImageName}"
                     docker.build('vinhbh/simple_image_jenkins:1.0', '.')
                 }
             }
