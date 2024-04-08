@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKER_HUB_CREDENTIALS = 'dockerhub_vinhbh'
-        IMAGE_NAME = 'vinhbh/simple_image_jenkins'
+        registry = 'vinhbh/simple_image_jenkins'
     }
     stages {
         stage('Clone') {
@@ -17,10 +17,7 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
-                    def tagName = env.GIT_TAG_NAME
-                    def newImageName = "${env.IMAGE_NAME}:${tagName}"
-                    echo "Full image name: ${newImageName}"
-                    docker.build('vinhbh/simple_image_jenkins:1.0', '.')
+                    docker.build('vinhbh/simple_image_jenkins:lastest', '.')
                 }
             }
         }
@@ -31,7 +28,7 @@ pipeline {
                     sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
                 }
                 // Push Docker image to Docker Hub
-                sh 'docker push vinhbh/simple_image_jenkins:1.0'
+                sh 'docker push vinhbh/simple_image_jenkins:lastest'
             }
         }
     }
