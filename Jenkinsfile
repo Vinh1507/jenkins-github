@@ -4,13 +4,6 @@ pipeline {
         DOCKER_HUB_CREDENTIALS = 'dockerhub_vinhbh'
         registry = 'vinhbh/simple_image_jenkins'
     }
-    triggers {
-        github {
-            // Trigger build khi có tag mới trên GitHub
-            events('push')
-            branches('*/tags/*')
-        }
-    }
     stages {
         stage('Clone') {
             steps {
