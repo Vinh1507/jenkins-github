@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKER_HUB_CREDENTIALS = 'docker-hub-credentials'
+        DOCKER_HUB_CREDENTIALS = 'dockerhub_vinhbh'
         registry = 'vinhbh/simple_image_jenkins'
     }
     stages {
@@ -24,7 +24,7 @@ pipeline {
         stage('Push to Docker Hub') {
             steps {
                 // Login to Docker Hub
-                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub_vinhbh', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                     sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
                 }
                 // Push Docker image to Docker Hub
