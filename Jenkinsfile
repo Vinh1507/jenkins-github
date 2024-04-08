@@ -17,7 +17,8 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
-                    docker.build('vinhbh/simple_image_jenkins:lastest', '.')
+                    // docker.build('vinhbh/simple_image_jenkins:lastest', '.')
+                    sh 'docker build -t vinhbh/simple_image_jenkins:lastest .'
                 }
             }
         }
